@@ -33,6 +33,15 @@ class AddItem():
         self.txt.destroy()
         self.btt.destroy()
 
+def itemChk(name, count, e1, e2):
+    e1.delete(0, 'end')
+    e2.delete(0, 'end')
+    
+    if count == "":
+        count = 1
+    if name == "":
+        return 'Must enter item name'
+    AddItem(name, count)
 
 def add_fixed():
     """
@@ -43,22 +52,23 @@ def add_fixed():
     """
     #variables
     itemName = tk.StringVar()
-    itemCount = tk.IntVar()
-    itemCount.set("")
-    
+    itemCount = tk.StringVar()
+
     
     #title
     tk.Label(root, text='Grocery list', font=('Arial', 20)).grid(row=0,columnspan=2, sticky='NW', padx = 15, pady= 5)
     
     #item entry
     tk.Label(root, text='Item:').grid(row=1, padx=10, sticky='W')
-    tk.Entry(root, textvariable=itemName).grid(row=1, column=1, sticky='W')
+    e1 = tk.Entry(root, textvariable=itemName)
+    e1.grid(row=1, column=1, sticky='W')
     #count entry
     tk.Label(root, text='Amount:').grid(row=2, column=0, padx=10, sticky='W')
-    tk.Entry(root, textvariable=itemCount).grid(row=2, column=1, sticky='W')
+    e2 = tk.Entry(root, textvariable=itemCount)
+    e2.grid(row=2, column=1, sticky='W')
     
     #add button
-    tk.Button(root, text='Add', command=lambda: AddItem(itemName.get(), itemCount.get()) ).grid(row=1, column=2, sticky='W', padx=10)
+    tk.Button(root, text='Add', command=lambda: itemChk(itemName.get(), itemCount.get(), e1, e2)).grid(row=1, column=2, sticky='W', padx=10)
 
 
     
