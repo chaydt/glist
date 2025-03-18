@@ -6,6 +6,33 @@ root = tk.Tk()
 frame = tk.Frame(root, width=500, height=500)
 rowstart = 3
 
+class AddItem():
+    """
+    Adds items to gui
+    
+    class means its easier to delete i suppose.
+    """
+    
+    def __init__(self, name, count):
+        self.name = name
+        self.count = count
+        self.add_items()
+        
+    def add_items(self):
+        global rowstart
+        
+        #label
+        self.txt = tk.Label(root, text=f'{self.count}x {self.name}')
+        self.txt.grid(row=rowstart, column=0, sticky='W')
+        #removal button
+        self.btt = tk.Button(root, text='Remove', command=self.remove)
+        self.btt.grid(row=rowstart, column=1, sticky='W')
+        rowstart += 1
+        
+    def remove(self):
+        self.txt.destroy()
+        self.btt.destroy()
+
 
 def add_fixed():
     """
@@ -31,7 +58,7 @@ def add_fixed():
     tk.Entry(root, textvariable=itemCount).grid(row=2, column=1, sticky='W')
     
     #add button
-    tk.Button(root, text='Add') ).grid(row=1, column=2, sticky='W', padx=10)
+    tk.Button(root, text='Add', command=lambda: AddItem(itemName.get(), itemCount.get()) ).grid(row=1, column=2, sticky='W', padx=10)
 
 
     
